@@ -2,50 +2,76 @@
 
 #include <iostream>
 #include <string>
+#include "FBullCowGame.h"
 
-using namespace std;
 
 void PrintIntro();
-string GetGuess();
-void ShowGuess();
+void PlayGame();
+std::string GetGuess();
+bool AskToPlayAgain();
+
+FBullCowGame BCGame;
 
 // Entry point for the application
 int main() {
-	constexpr int NUMBER_ITERATIONS = 5;
+	
 	PrintIntro();
 
-	for (int count = 1; count <= NUMBER_ITERATIONS; count++) {
-		GetGuess();
-		ShowGuess();
-
-		cout << endl;
-	}
-
-	cout << endl;
+	do {
+		PlayGame();
+	} while (AskToPlayAgain());
 
 	return 0;
 }
 
-// Introduces the game
+// Introduce the game
 void PrintIntro() {
 	constexpr int WORD_LENGTH = 9;
-	cout << "Welcome to Bulls and Cows, a simple and fun word game.\n";
-	cout << "Can you guess the " << WORD_LENGTH;
-	cout << " letter isogram I'm thinking of?\n";
+	std::cout << "Welcome to Bulls and Cows, a simple and fun word game.\n";
+	std::cout << "Can you guess the " << WORD_LENGTH;
+	std::cout << " letter isogram I'm thinking of?\n" << std::endl;
 	return;
 }
 
-// Retrieve guess as a string from user input
-string GetGuess() {
-	string Guess = "";
-	cout << "Enter your guess: ";
-	getline(cin, Guess);
+// Set game to run for a given number of allowed guesses
+void PlayGame() {
+	
+	int MaxTries = BCGame.GetMaxTries();
+
+	for (int count = 1; count <= MaxTries; count++) {
+		std::string Guess = GetGuess();
+		std::cout << "Your guess is: " << Guess << std::endl;
+
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl;
+}
+
+// Retrieve guess as a std::string from user input
+std::string GetGuess() {
+	std::string Guess = "";
+	int CurrentTry = BCGame.GetCurrentTry();
+
+	std::cout << "Try " << CurrentTry << ". Enter your guess: ";
+	getline(std::cin, Guess);
 	
 	return Guess;
 }
 
-// Shows the guess back to the user.
-void ShowGuess() {
-	string Guess = GetGuess();
-	cout << "Your guess is: " << Guess << endl;
+bool AskToPlayAgain() {
+	std::cout << "Do you want to play again? (Y/N): ";
+
+	while (true) {
+		std::string Response = "";
+		getline(std::cin, Response);
+		if (Response[0] == 'y' || Response[0] == 'Y'){
+			return true;
+		}
+		else if (Response[0] == 'n' || Response[0] == 'N') {
+			return false;
+		}
+
+		std::cout << "Please enter either Y or N: ";
+	}
 }
