@@ -1,4 +1,6 @@
 #include "FBullCowGame.h"
+#include <map>
+#define TMap std::map
 
 using FString = std::string;
 using int32 = int;
@@ -21,12 +23,12 @@ void FBullCowGame::Reset() {
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const {
 	//If guess isn't an isogram
-	if (false) {
+	if (!IsIsogram(Guess)) {
 		return EGuessStatus::Not_Isogram;
 	}
 
 	//If guess isn't all lowercase
-	else if (false) {
+	else if (!IsLowercase(Guess)) {
 		return EGuessStatus::Not_Lowercase;
 	}
 
@@ -72,6 +74,43 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess) {
 	}
 
 	return Count;
+}
+
+
+// Checks guess string is a valid isogram
+bool FBullCowGame::IsIsogram(FString Word) const {
+	// Treat 0 and 1 letter words as isograms.
+	if (Word.length() <= 1) { return true; }
+	
+	TMap<char, bool> LetterSeen;
+
+	// Loop through the guess character by character
+	for (auto Letter : Word) {
+		// Force letter to be lowercase
+		Letter = tolower(Letter);
+
+		// If letter exists in map we do not have an isogream
+		if (LetterSeen[Letter]) { return false; }
+		else {
+			LetterSeen[Letter] = true;
+		}
+	}
+
+	// If all characters are cycled through without returning false, return true
+	return true;
+}
+
+bool FBullCowGame::IsLowercase(FString Word) const {
+	//Strings of 0 length are lowercase
+	if (Word.length() == 0) { return true; }
+
+	// If at any point a character is uppercase, break the loop and return
+	for (auto Letter : Word) {
+		if (!islower(Letter)) { return false; }
+	}
+
+	// If all characters are lowercase proceed
+	return true;
 }
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
