@@ -37,8 +37,14 @@ int main() {
 // Introduce the game
 void PrintIntro() {
 	int32 WordLength = BCGame.GetHiddenWordLength();
-	std::cout << "Welcome to Bulls and Cows, a simple and fun word game.\n";
-	std::cout << "Can you guess the " << WordLength;
+	
+	std::cout << "  ___      _ _                   _    ___               " << std::endl;
+	std::cout << " | _ )_  _| | |___  __ _ _ _  __| |  / __|_____ __ _____" << std::endl;
+	std::cout << " | _ \\ || | | (_-< / _` | ' \\/ _` | | (__/ _ \\ V  V (_-<" << std::endl;
+	std::cout << " |___/\\_,_|_|_/__/ \\__,_|_||_\\__,_|  \\___\\___/\\_/\\_//__/\n" << std::endl;
+	
+	std::cout << " Welcome to Bulls and Cows, a simple and fun word game.\n";
+	std::cout << " Can you guess the " << WordLength;
 	std::cout << " letter isogram I'm thinking of?\n" << std::endl;
 	return;
 }
@@ -76,7 +82,7 @@ FString GetValidGuess() {
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
 
 	while (true) {
-	std::cout << "Try " << CurrentTry << ". Enter your guess: ";
+	std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries() << ". Enter your guess: ";
 	
 	getline(std::cin, Guess); // Receive guess string
 	Status = BCGame.CheckGuessValidity(Guess);

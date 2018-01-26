@@ -38,7 +38,7 @@ public:
 // Private variables = member variables
 private:
 	bool IsIsogram(FString Word) const;
-	bool IsLower(FString Word) const;
+	bool IsLowercase(FString Word) const;
 
 	int32 MyMaxTries;
 	int32 MyCurrentTry;
