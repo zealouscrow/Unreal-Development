@@ -1,13 +1,14 @@
 /* 
 Implements back-end game logic, making use of a class file and
 various helper methods to run the game and handle/validate user input.
+A simple word game based upon isograms.
 For the main entry point, see main.cpp.
 
 Author: https://github.com/zealouscrow
 
 */
 
-
+#pragma once
 #include "FBullCowGame.h"
 #include <map>
 #define TMap std::map
@@ -16,9 +17,10 @@ using FString = std::string;
 using int32 = int;
 
 
-FBullCowGame::FBullCowGame() { FBullCowGame::Reset(); } // default constructor
+// Default constructor
+FBullCowGame::FBullCowGame() { FBullCowGame::Reset(); } 
 
-
+// Resets game to base state, generating a new word and bringing tries back down to one
 void FBullCowGame::Reset() {
 	const FString HIDDEN_WORD = GenerateHiddenWord();
 	
@@ -31,7 +33,9 @@ void FBullCowGame::Reset() {
 
 // Generates a randomised hidden word from premade sets established in member variables
 FString FBullCowGame::GenerateHiddenWord() {
+	// Generates a number between 1 and 4 that chooses which word length is used
 	int32 ListChoice = (rand() % 4 + 1);
+	// Generates a number between 0 and 7 to determine the index of the vector used
 	int32 WordChoice = (rand() % 7);
 	
 	if (ListChoice == 1) { return ThreeLetter[WordChoice]; }
@@ -40,7 +44,7 @@ FString FBullCowGame::GenerateHiddenWord() {
 	else if (ListChoice == 4) { return SixLetter[WordChoice]; }
 }
 
-
+// Checks each condition for a guess to be valid and returns the appropriate status
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const {
 	//If guess isn't an isogram
 	if (!IsIsogram(Guess)) {
@@ -86,6 +90,7 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess) {
 		}
 	}
 	
+	// If the number of bulls matches the word length, player has won
 	if (Count.Bulls == WordLength) {
 		bGameIsWon = true;
 	}
@@ -120,6 +125,7 @@ bool FBullCowGame::IsIsogram(FString Word) const {
 	return true;
 }
 
+// Checks that all characters in the guess are lowercase
 bool FBullCowGame::IsLowercase(FString Word) const {
 	//Strings of 0 length are lowercase
 	if (Word.length() == 0) { return true; }
@@ -133,11 +139,14 @@ bool FBullCowGame::IsLowercase(FString Word) const {
 	return true;
 }
 
-int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
+// Maps number of tries to the length of the word in play
 int32 FBullCowGame::GetMaxTries() const {
-	TMap<int32, int32> WordLengthToMaxTries{ {3,4}, {4,6}, {5,8}, {6,10} };
+	TMap<int32, int32> WordLengthToMaxTries{ { 3,5 },{ 4,7 },{ 5,10 },{ 6,15 } };
 	return WordLengthToMaxTries[GetHiddenWordLength()];
 }
+
+// Other getter methods
+int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 FString FBullCowGame::GetHiddenWord() const { return MyHiddenWord; }
 int32 FBullCowGame::GetHiddenWordLength() const { return GetHiddenWord().length(); }
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }

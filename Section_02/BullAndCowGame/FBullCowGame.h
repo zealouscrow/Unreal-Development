@@ -20,6 +20,7 @@ struct FBullCowCount {
 	int32 Cows = 0;
 };
 
+// Enum providing statuses for the validity of guesses
 enum EGuessStatus {
 	Invalid_Status,
 	OK,
@@ -35,20 +36,22 @@ public:
 
 	void Reset();
 	FString GenerateHiddenWord();
+	EGuessStatus CheckGuessValidity(FString Guess) const;
+	FBullCowCount SubmitValidGuess(FString);
+	
 	int GetCurrentTry() const;
 	bool IsGameWon() const;
 	int GetMaxTries() const;
 	FString GetHiddenWord() const;
 	int32 GetHiddenWordLength() const;
-	EGuessStatus CheckGuessValidity(FString Guess) const;
-	FBullCowCount SubmitValidGuess(FString);
-
-
+	
 
 // Private variables = member variables
 private:
 	bool IsIsogram(FString Word) const;
 	bool IsLowercase(FString Word) const;
+
+	// See constructor for initialisation
 	int32 MyCurrentTry;
 	FString MyHiddenWord;
 	bool bGameIsWon;

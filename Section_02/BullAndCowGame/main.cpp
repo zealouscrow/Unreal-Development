@@ -8,20 +8,23 @@ Author: https://github.com/zealouscrow
 
 */
 
+#pragma once
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
+// Conforming variable types to unreal standards
 using FString = std::string;
 using int32 = int;
 
+// Function prototypes, as outside a class
 void PrintIntro();
 void PlayGame();
 FString GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
 
-FBullCowGame BCGame;
+FBullCowGame BCGame; // Instantiate a new game, which is re-used across plays
 
 // Entry point for the application
 int main() {
@@ -131,7 +134,7 @@ bool AskToPlayAgain() {
 	}
 }
 
-
+// Provides feedback to the user when they win or lose
 void PrintGameSummary() {
 	if (BCGame.IsGameWon()) {
 		std::cout << "Congratulations! You won!\n";
