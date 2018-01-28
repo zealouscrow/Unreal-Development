@@ -7,5 +7,6 @@ from what is written by the instructor. This README will serve as an indicator o
 
 ### Section 02:
 + Covering fundamental C++ skills in the context of a simple word game, Bulls and Cows. 
-+ Includes methods, loops, continual refactoring and eventually use of ASCII art.
++ Includes methods, loops, maps, continual refactoring and use of ASCII art.
 + Emphasises good practices in terms of namespaces and code clarity.
++ Additional to the base content, I included a feature where a random isogram of length between 3 and 6 is generated each playthrough.
