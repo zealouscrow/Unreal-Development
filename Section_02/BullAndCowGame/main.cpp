@@ -1,4 +1,5 @@
-/* Console executable, making use of the BullCow class.
+/* 
+Console executable, making use of the BullCow class.
 This acts as the view in an MVC pattern and is responsible for all
 user interaction.
 For game logic, see FBullCowGame.cpp.
@@ -38,22 +39,23 @@ int main() {
 void PrintIntro() {
 	int32 WordLength = BCGame.GetHiddenWordLength();
 	
-	std::cout << "  ___      _ _                   _    ___               " << std::endl;
-	std::cout << " | _ )_  _| | |___  __ _ _ _  __| |  / __|_____ __ _____" << std::endl;
-	std::cout << " | _ \\ || | | (_-< / _` | ' \\/ _` | | (__/ _ \\ V  V (_-<" << std::endl;
-	std::cout << " |___/\\_,_|_|_/__/ \\__,_|_||_\\__,_|  \\___\\___/\\_/\\_//__/\n" << std::endl;
+	std::cout << " ___      _ _                   _    ___               " << std::endl;
+	std::cout << "| _ )_  _| | |___  __ _ _ _  __| |  / __|_____ __ _____" << std::endl;
+	std::cout << "| _ \\ || | | (_-< / _` | ' \\/ _` | | (__/ _ \\ V  V (_-<" << std::endl;
+	std::cout << "|___/\\_,_|_|_/__/ \\__,_|_||_\\__,_|  \\___\\___/\\_/\\_//__/\n" << std::endl;
 	
-	std::cout << " Welcome to Bulls and Cows, a simple and fun word game.\n";
-	std::cout << " Can you guess the " << WordLength;
-	std::cout << " letter isogram I'm thinking of?\n" << std::endl;
+	std::cout << "Welcome to Bulls and Cows, a simple and fun word game.\n";
 	return;
 }
 
 
 // Set game to run for a given number of allowed guesses
 void PlayGame() {
-	
 	BCGame.Reset();
+
+	std::cout << "\nCan you guess the " << BCGame.GetHiddenWordLength();
+	std::cout << " letter isogram I'm thinking of?\n" << std::endl;
+	
 	int32 MaxTries = BCGame.GetMaxTries();
 
 	// While game is NOT won and there are tries remaining, loop asking for guesses
@@ -112,7 +114,7 @@ FString GetValidGuess() {
 
 // Ask for user input (Y/N) to determine whether to restart game or exit
 bool AskToPlayAgain() {
-	std::cout << "Do you want to play again with the same hidden word? (Y/N): ";
+	std::cout << "Do you want to play again with a new hidden word? (Y/N): ";
 
 	while (true) {
 		FString Response = "";
@@ -135,6 +137,7 @@ void PrintGameSummary() {
 		std::cout << "Congratulations! You won!\n";
 	}
 	else {
-		std::cout << "Sorry, you didn't guess the correct word. Better luck next time.\n";
+		std::cout << "Sorry, the word you were looking for was: " << BCGame.GetHiddenWord();
+		std::cout << ". Better luck next time.\n";
 	}
 }

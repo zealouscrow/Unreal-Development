@@ -1,3 +1,13 @@
+/* 
+Implements back-end game logic, making use of a class file and
+various helper methods to run the game and handle/validate user input.
+For the main entry point, see main.cpp.
+
+Author: https://github.com/zealouscrow
+
+*/
+
+
 #include "FBullCowGame.h"
 #include <map>
 #define TMap std::map
@@ -6,18 +16,28 @@ using FString = std::string;
 using int32 = int;
 
 
-FBullCowGame::FBullCowGame() { FBullCowGame::Reset(); }
+FBullCowGame::FBullCowGame() { FBullCowGame::Reset(); } // default constructor
+
 
 void FBullCowGame::Reset() {
-	constexpr int32 MAX_TRIES = 5;
-	const FString HIDDEN_WORD = "planet";
+	const FString HIDDEN_WORD = GenerateHiddenWord();
 	
-	MyMaxTries = MAX_TRIES;
 	MyHiddenWord = HIDDEN_WORD;
 	MyCurrentTry = 1;
 	bGameIsWon = false;
 	
 	return;
+}
+
+// Generates a randomised hidden word from premade sets established in member variables
+FString FBullCowGame::GenerateHiddenWord() {
+	int32 ListChoice = (rand() % 4 + 1);
+	int32 WordChoice = (rand() % 7);
+	
+	if (ListChoice == 1) { return ThreeLetter[WordChoice]; }
+	else if (ListChoice == 2) { return FourLetter[WordChoice]; }
+	else if (ListChoice == 3) { return FiveLetter[WordChoice]; }
+	else if (ListChoice == 4) { return SixLetter[WordChoice]; }
 }
 
 
@@ -114,7 +134,10 @@ bool FBullCowGame::IsLowercase(FString Word) const {
 }
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
-int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
+int32 FBullCowGame::GetMaxTries() const {
+	TMap<int32, int32> WordLengthToMaxTries{ {3,4}, {4,6}, {5,8}, {6,10} };
+	return WordLengthToMaxTries[GetHiddenWordLength()];
+}
 FString FBullCowGame::GetHiddenWord() const { return MyHiddenWord; }
 int32 FBullCowGame::GetHiddenWordLength() const { return GetHiddenWord().length(); }
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
