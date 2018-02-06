@@ -10,3 +10,9 @@ from what is written by the instructor. This README will serve as an indicator o
 + Includes methods, loops, maps, continual refactoring and use of ASCII art.
 + Emphasises good practices in terms of namespaces and code clarity.
 + Additional to the base content, I included a feature where a random isogram of length between 3 and 6 is generated each playthrough.
+
+### Section 03:
++ Design and create a Building Escape game in 3D
++ Develop C++ skills further within the Unreal Engine (via Visual Studio)
++ Fully switch to unreal standards of coding and variable naming
++ Work with blueprint to establish richer gameplay and win conditions

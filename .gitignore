@@ -1,6 +1,16 @@
-Section_02/BullAndCowGame.sln
-Section_02/Debug
-Section_02/.vs
-Section_02/BullAndCowGame/BullAndCowGame.vcxproj
-Section_02/BullAndCowGame/BullAndCowGame.vcxproj.filters
-Section_02/BullAndCowGame/Debug
+# Section 03 specific content
+Section_03/BuildingEscape/Content/StarterContent
+
+# Derived Unreal Engine 4 directories
+**/Binaries
+**/Build
+**/Intermediate
+**/Saved
+**/DerivedDataCache
+
+# Excess Visual Studio files
+**/Debug
+**/.vs
+**/*.vc.db
+**/*.vcxproj
+**/*.vcxproj.filters
