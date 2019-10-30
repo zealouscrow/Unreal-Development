@@ -16,3 +16,4 @@ from what is written by the instructor. This README will serve as an indicator o
 + Develop C++ skills further within the Unreal Engine (via Visual Studio)
 + Fully switch to unreal standards of coding and variable naming
 + Work with blueprint to establish richer gameplay and win conditions
++ Learn to use collision physics and triggers
